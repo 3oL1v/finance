@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Focus Day Bot</title>
+    <meta name="theme-color" content="#eff6ff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="bg-orb orb-left"></div>
+    <div class="bg-orb orb-right"></div>
+
+    <main class="app-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Focus Day Bot</p>
+                <h1 class="topbar-title">Личный dashboard</h1>
+            </div>
+            <span class="mode-badge" id="mode-badge">Загрузка...</span>
+        </header>
+
+        <section class="hero-card reveal">
+            <div class="hero-copy">
+                <span class="hero-badge" id="hero-badge">Ритм недели</span>
+                <h2 class="hero-title" id="greeting">Твой продуктивный день</h2>
+                <p class="hero-subtitle" id="hero-subtitle">Собираем состояние...</p>
+            </div>
+            <button class="hero-button" id="mark-day-button" type="button">Отметить день</button>
+        </section>
+
+        <section class="stats-grid reveal">
+            <article class="stat-card accent">
+                <span class="stat-label">Серия</span>
+                <strong class="stat-value" id="streak-value">0 дней</strong>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Прогресс</span>
+                <strong class="stat-value" id="progress-value">0%</strong>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">За 7 дней</span>
+                <strong class="stat-value" id="week-value">0/7</strong>
+            </article>
+        </section>
+
+        <section class="panel reveal">
+            <div class="panel-head">
+                <div>
+                    <p class="panel-kicker">Прогресс</p>
+                    <h3 class="panel-title">Ритм недели</h3>
+                </div>
+                <span class="panel-metric" id="progress-metric">0%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="panel-note" id="progress-label">Недельная активность загружается...</p>
+        </section>
+
+        <section class="panel reveal">
+            <div class="panel-head compact">
+                <div>
+                    <p class="panel-kicker">История</p>
+                    <h3 class="panel-title">Последние 7 дней</h3>
+                </div>
+            </div>
+            <div class="week-strip" id="week-strip"></div>
+        </section>
+
+        <section class="panel reveal">
+            <div class="panel-head compact">
+                <div>
+                    <p class="panel-kicker">Фокус</p>
+                    <h3 class="panel-title">3 задачи на сегодня</h3>
+                </div>
+            </div>
+            <div class="task-list" id="task-list"></div>
+        </section>
+
+        <section class="panel quote-panel reveal">
+            <p class="panel-kicker">Мотивация</p>
+            <blockquote class="quote-text" id="quote-text">...</blockquote>
+            <p class="quote-author" id="quote-author"></p>
+        </section>
+
+        <section class="panel summary-panel reveal">
+            <div class="panel-head compact">
+                <div>
+                    <p class="panel-kicker">Статус</p>
+                    <h3 class="panel-title" id="summary-title">Загрузка...</h3>
+                </div>
+            </div>
+            <p class="summary-text" id="summary-text"></p>
+        </section>
+    </main>
+
+    <script>
+        window.FOCUS_DAY_CONFIG = {
+            baseUrl: "{{ base_url }}"
+        };
+    </script>
+    <script src="/static/app.js" defer></script>
+</body>
+</html>

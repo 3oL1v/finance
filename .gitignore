@@ -1,0 +1,14 @@
+.env
+.venv/
+.run/
+.npm-cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+finance_tracker.db
+data/*.db
+data/*.sqlite*
+certs/
+wheels/
+logs/
+*.log

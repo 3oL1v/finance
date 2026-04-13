@@ -1,0 +1,10 @@
+.env
+.venv
+.run
+.npm-cache
+certs
+wheels
+logs
+__pycache__
+*.pyc
+finance_tracker.db
