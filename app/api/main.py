@@ -36,8 +36,9 @@ async def on_startup() -> None:
 async def index(request: Request) -> HTMLResponse:
     settings = get_settings()
     return templates.TemplateResponse(
-        "index.html",
-        {"request": request, "base_url": settings.base_url},
+        request=request,
+        name="index.html",
+        context={"base_url": settings.base_url},
     )
 
 
