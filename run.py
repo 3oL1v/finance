@@ -47,6 +47,8 @@ def safe_print(message: str) -> None:
 def ensure_env_file() -> None:
     if ENV_FILE.exists() or not ENV_EXAMPLE_FILE.exists():
         return
+    if os.getenv("PORT") or os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("BOT_TOKEN"):
+        return
     shutil.copyfile(ENV_EXAMPLE_FILE, ENV_FILE)
     safe_print("Created .env from .env.example. Update BOT_TOKEN before starting the bot.")
 
@@ -128,12 +130,13 @@ def wait_for_health(health_url: str, process: ManagedProcess, timeout: float = 3
 
 def build_runtime_env() -> tuple[dict[str, str], str, int, str]:
     ensure_env_file()
-    load_dotenv(ENV_FILE)
+    load_dotenv(ENV_FILE, override=False)
+    get_settings.cache_clear()
     settings = get_settings()
 
     values = {key: value for key, value in dotenv_values(ENV_FILE).items() if value is not None}
-    env = os.environ.copy()
-    env.update(values)
+    env = values.copy()
+    env.update(os.environ)
     env["PYTHONUNBUFFERED"] = "1"
     env["BASE_URL"] = settings.base_url
 
@@ -143,16 +146,17 @@ def build_runtime_env() -> tuple[dict[str, str], str, int, str]:
 
     safe_print(f"Base URL: {settings.base_url}")
     safe_print(f"Bind: http://{host}:{port}")
-    safe_print(f"Database: {settings.database_path}")
+    database_label = "PostgreSQL via DATABASE_URL" if settings.database_url else str(settings.database_path)
+    safe_print(f"Database: {database_label}")
 
     return env, host, port, health_url
 
 
 def main() -> int:
     configure_stdio()
-    init_db()
 
     env, host, port, health_url = build_runtime_env()
+    init_db()
     settings = get_settings()
     python = resolve_python()
 
