@@ -37,6 +37,7 @@ class Settings:
     app_host: str
     app_port: int
     base_url: str
+    database_url: str
     database_path: Path
     enable_reload: bool
     is_railway: bool
@@ -61,6 +62,7 @@ def get_settings() -> Settings:
         app_host=app_host,
         app_port=app_port,
         base_url=base_url,
+        database_url=os.getenv("DATABASE_URL", "").strip(),
         database_path=_resolve_database_path(os.getenv("DATABASE_PATH", "data/finance_tracker.db")),
         enable_reload=_env_flag("ENABLE_RELOAD", False),
         is_railway=is_railway,

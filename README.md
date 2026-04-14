@@ -27,7 +27,7 @@ Blueprint лежит в [docs/project_blueprint.md](/C:/VSCode/projects/bots_por
 - Python
 - aiogram 3
 - FastAPI
-- SQLite
+- SQLite / PostgreSQL
 - HTML / CSS / JavaScript
 
 ## Локальный запуск
@@ -82,7 +82,7 @@ python run.py
 
 `run.py`:
 
-- инициализирует SQLite
+- инициализирует базу данных
 - поднимает FastAPI
 - запускает Telegram-бота
 - следит за логами обоих процессов
@@ -102,7 +102,8 @@ python run.py
 
 - сервис слушает `0.0.0.0:$PORT`, если Railway передаёт `PORT`
 - публичный URL автоматически собирается из `RAILWAY_PUBLIC_DOMAIN`, если `BASE_URL` не задан
-- SQLite умеет использовать `RAILWAY_VOLUME_MOUNT_PATH`, если к сервису подключён Volume
+- если задан `DATABASE_URL`, приложение работает с PostgreSQL
+- если `DATABASE_URL` не задан, остаётся fallback на SQLite
 - в репозитории есть `Procfile` и `railway.json` для явного старт-команда и healthcheck
 
 ### Переменные Railway
@@ -114,6 +115,7 @@ python run.py
 Опциональные:
 
 - `BASE_URL` — если хочешь явно переопределить публичный URL
+- `DATABASE_URL` — основной вариант для Railway PostgreSQL
 - `DATABASE_PATH` — по умолчанию `data/finance_tracker.db`
 - `ENABLE_RELOAD` — для Railway не нужен, оставляй `false`
 
